@@ -1,0 +1,119 @@
+
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="title" content="ScoopThemes">
+<meta name="ROBOTS" content="">
+<meta name="description" content="">
+<meta name="abstract" content="">
+
+<title>红色气球搜索网站HTML模板源码 - 代码库</title>
+
+{% load static %}
+
+<!-- Bootstrap -->
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-theme.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/animations.css' %}">
+
+<!-- simple style -->
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+
+
+
+<div id="wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+                <h1> Search it!</h1>
+				<br/>
+				<br/>
+				<h2 class="subtitle">We're working hard to launch our website and we'll be ready very soon</h2>
+				<br/>
+
+				<form class="form-inline validate signup" action="{% url 'search:search_result'  %}" method="post" role="form">
+					{% csrf_token %}
+                    <div class="form-group">
+						<input type="email" class="form-control" name="EMAIL" id="exampleInputEmail1" placeholder="Enter it">
+					</div>
+					<input type="submit" name="subscribe" value="Get results!" class="btn btn-theme">
+				</form>
+				<br/>
+			</div>
+			<div class="col-sm-12 align-center">
+				<ul class="social-network social-circle">
+					<li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a>
+					</li>
+					<li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+					</li>
+					<li><a href="#" class="icoGit" title="Github"><i class="fa fa-github"></i></a>
+					</li>
+					<li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
+<script src="{% static 'js/jquery.form-n-validate.js' %}"></script>
+<script>
+
+$(document).ready( function () {
+$('#wrapper').height($(document).height());
+// I only have one form on the page but you can be more specific if need be.
+var $form = $('form');
+
+if ( $form.length > 0 ) {
+	$('form input[type="submit"]').bind('click', function ( event ) {
+		if ( event ) event.preventDefault();
+		// validate_input() is a validation function I wrote, you'll have to substitute this with your own.
+		if ( $form.validate() ) { register($form); }
+	});
+}
+});
+
+function appendResult(userText , className, iconClass){
+var resultHTML = "<div class='stretchLeft result "+ className + "'>" + userText + " <span class='fa fa-" + iconClass + "'></span>" + "</div>";
+$('body').append(resultHTML);
+$('.result').delay(10000).fadeOut('1000');
+}
+
+
+function register($form) {
+$.ajax({
+	type: $form.attr('method'),
+	url: $form.attr('action'),
+	data: $form.serialize(),
+	cache       : false,
+	dataType    : 'json',
+	contentType: "application/json; charset=utf-8",
+	error       : function(err) { alert("Could not connect to the registration server. Please try again later."); },
+	success     : function(data) {
+		if (data.result != "success") {
+			appendResult('Wrong Email Or You Are Already Registered, Try Again', 'error', 'exclamation');
+		} else {
+			// It worked, carry on...
+			appendResult('Successful, Check Your Email For Confirmation ', 'success', 'check');
+		}
+	}
+});
+}
+</script>
+
+</body>
+</html>

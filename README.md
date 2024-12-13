@@ -1,6 +1,6 @@
 ## 介绍
 
-NkuSearchIt 是一个Web搜索引擎南开资源站，本项目通过爬虫迭代地获取了南开校内的资源，并搭建网站提供丰富且个性化的检索服务，技术栈使用 Django + ElasticSearch
+NkuSearchIt 是一个Web搜索引擎南开资源站，本项目利用Django框架构建强大的后端服务，结合ElasticSearch实现高效搜索功能。项目采用requests和BeautifulSoup技术迭代地爬取了南开校内的资源，通过JSON存储用户数据，以HTML/CSS和Bootstrap呈现响应式前端界面，JavaScript和Jquery增强交互体验。
 
 ![image](https://github.com/BUGHERE/NkuSearchIt/assets/55886903/22e20646-7f51-4115-a6e8-d1184879044f)
 
